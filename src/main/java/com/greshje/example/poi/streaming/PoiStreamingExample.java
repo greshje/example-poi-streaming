@@ -16,18 +16,24 @@ public class PoiStreamingExample {
 	private static final String FILE_NAME = "/com/greshje/example/poi/streaming/test-file.xlsx";
 
 	public static void main(String[] args) {
+		log.info("Starting test...");
+		log.info("Getting file");
 		InputStream in = PoiStreamingExample.class.getResourceAsStream(FILE_NAME);
+		log.info("Got file");
 		StreamingReader reader = getReader(in, 0);
+		log.info("File contents:");
 		for (Row row : reader) {
 			String rowString = "";
 			for (Cell cell : row) {
 				if (rowString != "") {
 					rowString += ",";
 				}
+				// NEED A WAY TO GET A DATE WHERE APPROPRIATE HERE
 				rowString += cell.getStringCellValue();
 			}
 			log.info(rowString);
 		}
+		log.info("Done.");
 	}
 
 	public static StreamingReader getReader(InputStream in, int sheetIndex) {
